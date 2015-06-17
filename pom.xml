@@ -22,6 +22,7 @@
 		<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
 		<tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+
 	</properties>
 
 	<dependencies>
@@ -78,6 +79,13 @@
 			<version>${spring.version}</version>
 		</dependency>
 
+		<!-- Spring and Transactions -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+
 		<!-- Spring web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -95,6 +103,7 @@
 
 		<!-- Servlet, Jstl and Jsp API -->
 
+		<!-- Servlet and Jsp API -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -134,9 +143,7 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
-
 	<build>
 		<finalName>Spark</finalName>
 

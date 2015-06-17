@@ -1,7 +1,5 @@
 package com.qburst.spark.service;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import com.qburst.spark.dao.UserDao;
 import com.qburst.spark.model.User;
 

@@ -3,6 +3,7 @@ package com.qburst.spark.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -39,7 +40,15 @@ public class UserDaoImpl implements UserDao {
     @Override
 	public void addUser(User user) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.persist(user);
+       try{
+    		System.out.println("In Dao efore persist");
+    	   session.persist(user);
+       }
+       catch(JDBCException e){
+    	   e.printStackTrace();
+    	   
+       }
+   	System.out.println("In Dao after persist");
     }
     
     /* (non-Javadoc)
