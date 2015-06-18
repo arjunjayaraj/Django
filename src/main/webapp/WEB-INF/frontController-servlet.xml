@@ -31,8 +31,9 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<context:component-scan base-package="com.qburst.spark" />
-	<tx:annotation-driven transaction-manager="txManager" />
+<!-- 	<context:component-scan base-package="com.qburst.spark" /> -->
+<!-- 	<tx:annotation-driven transaction-manager="txManager" /> -->
+<!-- 	<tx:annotation-driven transaction-manager="transactionManager" /> -->
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -41,48 +42,77 @@
 		<property name="username" value="root" />
 		<property name="password" value="qburst" />
 	</bean>
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan">
-			<list>
-				<value>com.qburst.spark.model</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-			</props>
-		</property>
-	</bean>
-<!-- 	<bean id="entityManagerFactory" -->
-<!-- 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" -->
-<!-- 		autowire="byName"> -->
-<!-- 		<property name="persistenceUnitName" value="JpaPersistenceUnit" /> -->
-<!-- 		<property name="packagesToScan" value="com.qburst.spark.model" /> -->
+	 <bean
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        id="entityManagerFactory">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+ 
+    <context:component-scan base-package="com.qburst.spark.dao">
+        <context:include-filter type="annotation"
+            expression="org.springframework.stereotype.Repository" />
+    </context:component-scan>
+ 
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager"
+        id="transactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+ 
+    <tx:annotation-driven mode="aspectj"
+        transaction-manager="transactionManager" />
+ 
+    <context:spring-configured />
+    <context:annotation-config />
+<!-- 	<bean id="sessionFactory" -->
+<!-- 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> -->
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
+<!-- 		<property name="packagesToScan"> -->
+<!-- 			<list> -->
+<!-- 				<value>com.qburst.spark.model</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="hibernateProperties"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> -->
+<!-- 				<prop key="hibernate.show_sql">true</prop> -->
+<!-- 				<prop key="hibernate.hbm2ddl.auto">update</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
 <!-- 	</bean> -->
-<!-- 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> -->
-<!-- 		<property name="entityManagerFactory" ref="entityManagerFactory" /> -->
+	
+<!--    <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> -->
+<!--       <property name="dataSource" ref="dataSource" /> -->
+<!--       <property name="packagesToScan" value="com.qburst.spark.model" /> -->
+<!--       <property name="jpaVendorAdapter"> -->
+<!--          <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" /> -->
+<!--       </property> -->
+<!--       <property name="persistenceUnitName" value="JpaPersistenceUnit"/> -->
+<!--       <property name="jpaProperties"> -->
+<!--          <props> -->
+<!--             <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+<!--             <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop> -->
+<!--          </props> -->
+<!--       </property> -->
+<!--    </bean> -->
+<!-- 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"> -->
+<!-- 		<property name="entityManagerFactory" ref="myEmf" /> -->
 <!-- 	</bean> -->
-<!-- 	<tx:annotation-driven transaction-manager="transactionManager" /> -->
-<!-- 	<bean id="persistenceExceptionTranslationPostProcessor" -->
-<!-- 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> -->
 
-
-	<bean id="txManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-	<bean id="userDao" class="com.qburst.spark.dao.UserDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean id="userService" class="com.qburst.spark.service.UserServiceImpl">
-		<property name="userDao" ref="userDao" />
-	</bean>
+
+
+<!-- 	<bean id="txManager" -->
+<!-- 		class="org.springframework.orm.hibernate4.HibernateTransactionManager"> -->
+<!-- 		<property name="sessionFactory" ref="sessionFactory" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="usersDao" class="com.qburst.spark.dao.UsersDaoImpl"> -->
+<!-- 		<property name="em" ref="myEmf" /> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="userService" class="com.qburst.spark.service.UserServiceImpl"> -->
+<!-- 		<property name="usersDao" ref="usersDao" /> -->
+<!-- 	</bean> -->
 
 
 </beans>

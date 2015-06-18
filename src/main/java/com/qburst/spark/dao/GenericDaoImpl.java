@@ -1,5 +1,6 @@
 package com.qburst.spark.dao;
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -8,7 +9,6 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	
 	@PersistenceContext
 	EntityManager em;
-	
 	public void setEm(EntityManager em) {
 		this.em = em;
 	}
