@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,7 +24,7 @@ import com.qburst.spark.service.UserService;
 @Controller
 public class HomeController {
 	
-
+@Autowired
 	UserService userService;
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -40,9 +41,6 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		model.addAttribute("serverTime", formattedDate );
-		User user = this.userService.findByUserName("arjun");
-		System.out.println("The name is " +user.getUsername());
-		System.out.println("The password is "+user.getPassword());
 		return "home";
 	}
 	
@@ -72,7 +70,7 @@ public class HomeController {
 	@RequestMapping(value="/deleteuser")
 	public String login(@RequestParam("userName")String userName,Model model){
 		model.addAttribute("messsage", "delete succesful succesful");
-		this.userService.removeUser(userName);
+		//this.userService.removeUser(userName);
 		return "login";
 		
 	}

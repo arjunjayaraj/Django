@@ -1,62 +1,52 @@
 package com.qburst.spark.service;
 
-import javax.transaction.Transactional;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.qburst.spark.dao.UserDao;
-import com.qburst.spark.dao.UsersDao;
 import com.qburst.spark.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
-
-	private UserDao userDao;
 	
-
+	@Autowired
+	private UserDao userDao;
 	@Override
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-
-	private UsersDao usersDao;
-
-	public void setUsersDao(UsersDao usersDao) {
-		this.usersDao = usersDao;
-	}
-
+	
 	@Override
 @Transactional
 	public void addUser(User user) {
-		System.out.println("In service first");
-		this.userDao.addUser(user);
-		System.out.println("In service last");
+		User entity = this.userDao.find(User.class, user.getUsername());
+		if (entity == null) {
+		this.userDao.create(user);
+		}
 	}
-
 	@Override
 	@Transactional
 	public void updateUser(User user) {
-		User oldInfo = this.findByUserName(user.getUsername());
+		User oldInfo = this.userDao.find(User.class, user.getUsername());
 		oldInfo.setPassword(user.getPassword());
-		this.userDao.updateUser(oldInfo);
+		this.userDao.update(oldInfo);
 	}
 
 	@Override
 	@Transactional
 	public User findByUserName(String username) {
-		System.out.println("Inside service " +username);
-		User user =new User();
-		user.setUsername("adfsfsdfsdf");
-		user.setPassword("asdasdf");
-		return this.usersDao.create(user);
+		return this.userDao.find(User.class, username);
 	}
 
 	@Override
 	@Transactional
 	public void removeUser(String username) {
-		User user = this.userDao.findByUserName(username);
+		User user = this.userDao.find(User.class, username);
 		if (user != null) {
-			this.userDao.removeUser(username);
+			this.userDao.delete(User.class, username);
 		}
 	}
 
