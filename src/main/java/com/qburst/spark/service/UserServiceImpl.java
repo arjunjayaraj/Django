@@ -31,8 +31,13 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void updateUser(User user) {
 		User oldInfo = this.userDao.find(User.class, user.getUsername());
-		oldInfo.setPassword(user.getPassword());
-		this.userDao.update(oldInfo);
+		if(oldInfo!=null){
+			oldInfo.setPassword(user.getPassword());
+			this.userDao.update(oldInfo);
+		}
+		else{
+			System.out.println("No such entity found in update");
+		}
 	}
 
 	@Override
