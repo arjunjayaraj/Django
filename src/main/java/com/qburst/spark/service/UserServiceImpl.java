@@ -1,19 +1,28 @@
 package com.qburst.spark.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.qburst.spark.dao.UserDao;
+import com.qburst.spark.dao.UsersDao;
 import com.qburst.spark.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
+	
 
 	@Override
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+	@Autowired
+	private UsersDao usersDao;
+
+	public void setUsersDao(UsersDao usersDao) {
+		this.usersDao = usersDao;
 	}
 
 	@Override
@@ -35,7 +44,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public User findByUserName(String username) {
-		return this.userDao.findByUserName(username);
+		System.out.println("Inside service " +username);
+		return this.usersDao.loadUserByUsername(username);
 	}
 
 	@Override

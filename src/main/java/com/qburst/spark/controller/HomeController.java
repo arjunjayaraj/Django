@@ -41,6 +41,9 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		model.addAttribute("serverTime", formattedDate );
+		User user = this.userService.findByUserName("arjun");
+		System.out.println("The name is " +user.getUsername());
+		System.out.println("The password is "+user.getPassword());
 		return "home";
 	}
 	
