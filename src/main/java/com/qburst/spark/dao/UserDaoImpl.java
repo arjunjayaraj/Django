@@ -1,7 +1,5 @@
 package com.qburst.spark.dao;
 
-import java.sql.SQLDataException;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.Criteria;
