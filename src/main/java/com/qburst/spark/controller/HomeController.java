@@ -24,7 +24,7 @@ import com.qburst.spark.service.UserService;
 @Controller
 public class HomeController {
 	
-	@Autowired
+@Autowired
 	UserService userService;
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -70,7 +70,7 @@ public class HomeController {
 	@RequestMapping(value="/deleteuser")
 	public String login(@RequestParam("userName")String userName,Model model){
 		model.addAttribute("messsage", "delete succesful succesful");
-		this.userService.removeUser(userName);
+		//this.userService.removeUser(userName);
 		return "login";
 		
 	}
