@@ -165,6 +165,13 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- Cache Filter -->
+		<dependency>
+			<groupId>com.samaxes.filter</groupId>
+			<artifactId>cachefilter</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>Spark</finalName>
