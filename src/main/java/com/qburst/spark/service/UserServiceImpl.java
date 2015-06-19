@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.qburst.spark.dao.UserDao;
-import com.qburst.spark.dao.UsersDao;
 import com.qburst.spark.model.User;
 
 @Service
@@ -21,26 +20,19 @@ public class UserServiceImpl implements UserService {
 		this.userDao = userDao;
 	}
 
-	@Autowired
-	private UsersDao usersDao;
-
-	public void setUsersDao(UsersDao usersDao) {
-		this.usersDao = usersDao;
-	}
-
 	 private static final Logger LOGGER =
 	 LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Override
 	@Transactional
 	public void addUser(User user) {
-		LOGGER.info("Creating a new user entry by using information: {}", user);
-		if (!this.usersDao.exists(user.getUsername())) {
-			this.usersDao.save(user);
-			User entity2 = this.usersDao.findOne(user.getUsername());
-			System.out.println("Username" + entity2.getUsername());
-			System.out.println("Password" + entity2.getPassword());
-
+		LOGGER.info("Creating a new user entry by using information: {}", user.toString());
+		if (!this.userDao.exists(user.getUsername())) {
+			this.userDao.save(user);
+			LOGGER.info("Created a new user entry: {}", user.toString());
+		}
+		else{
+			LOGGER.info("User is not created,{} already exists", user.toString());
 		}
 
 	}
@@ -48,27 +40,38 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void updateUser(User user) {
-		User oldInfo = this.userDao.find(User.class, user.getUsername());
+		LOGGER.info("Updating a user entry by using information: {}", user.toString());
+		User oldInfo = this.userDao.findOne(user.getUsername());
 		if (oldInfo != null) {
 			oldInfo.setPassword(user.getPassword());
-			this.userDao.update(oldInfo);
-		} else {
-			System.out.println("No such entity found in update");
+			this.userDao.save(oldInfo);
+			LOGGER.info("Updated {} user entry to : {}",user.toString(), oldInfo.toString());
+		} 
+		else {
+			
+			LOGGER.info("Entity not found in Database while updating user {}",user.toString());
 		}
+		
 	}
 
 	@Override
 	@Transactional
 	public User findByUserName(String username) {
-		return this.userDao.find(User.class, username);
+		LOGGER.info("Finding a user entry by using information: {}", username);
+		return this.userDao.findOne(username);
 	}
 
 	@Override
 	@Transactional
 	public void removeUser(String username) {
-		User user = this.userDao.find(User.class, username);
+		LOGGER.info("Deleting a user entry by using information: {}", username);
+		User user = this.userDao.findOne(username);
 		if (user != null) {
-			this.userDao.delete(User.class, username);
+			this.userDao.delete(user);
+			LOGGER.info("Updated a user entry: {}", user.toString());
+		}
+		else{
+			LOGGER.info("Entity not found in Database while deleting user {}",username);
 		}
 	}
 

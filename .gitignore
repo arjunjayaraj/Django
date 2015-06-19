@@ -11,3 +11,4 @@ src/main/webapp/META-INF
 *.swp
 src/main/webapp/resources/.sass-cache/
 src/main/resources/database.properties
+src/log/**
