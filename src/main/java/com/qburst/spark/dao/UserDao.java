@@ -1,8 +1,11 @@
 package com.qburst.spark.dao;
 
-import com.qburst.spark.model.User;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserDao extends GenericDao<User> {
+import com.qburst.spark.model.User;
+@Repository
+public interface UserDao extends CrudRepository<User, String>,UserDaoCustom {
 
 
 }
