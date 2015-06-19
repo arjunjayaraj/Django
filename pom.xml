@@ -81,7 +81,17 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.8.0.RELEASE</version>
+        </dependency>
 		<!-- Spring and Transactions -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -155,6 +165,13 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- Cache Filter -->
+		<dependency>
+			<groupId>com.samaxes.filter</groupId>
+			<artifactId>cachefilter</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>Spark</finalName>
