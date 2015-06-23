@@ -52,7 +52,7 @@ public class HomeControllerTest {
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
 
-		mockMvc = MockMvcBuilders.standaloneSetup(homeController)
+		this.mockMvc = MockMvcBuilders.standaloneSetup(homeController)
 				.setViewResolvers(viewResolver).build();
 
 	}
@@ -60,7 +60,7 @@ public class HomeControllerTest {
 	@Test
 	public void testLogin() throws Exception {
 
-		mockMvc.perform(get("/login")).andExpect(status().isOk())
+		this.mockMvc.perform(get("/login")).andExpect(status().isOk())
 				.andExpect(view().name("login"))
 				.andExpect(model().attribute("message", "Welcome"))
 				.andExpect(forwardedUrl("/WEB-INF/views/login.jsp"));
@@ -72,7 +72,7 @@ public class HomeControllerTest {
 		user.setUsername("user");
 		user.setPassword("pass");
 		Mockito.when(userService.addUser(user)).thenReturn("SUCESSS");
-		mockMvc.perform(get("/adduser").param("username", "user").param("password", "pass")).andExpect(status().isOk())
+		this.mockMvc.perform(get("/adduser").param("username", "user").param("password", "pass")).andExpect(status().isOk())
 		.andExpect(view().name("login"));
 		//.andExpect(model().attribute("message","Login sucess"));
 		
