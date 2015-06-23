@@ -58,8 +58,8 @@ public class HomeController {
 	public ModelAndView addUser(@ModelAttribute User user){
 		ModelAndView model=new ModelAndView();
 		String message="";
-		System.out.println("user :" +user.toString());
 		model.setViewName("login");
+		System.out.println(user.toString());
 		logger.error("user in  Home controller" +user.toString());
 		
 		try{
@@ -69,7 +69,9 @@ public class HomeController {
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		model.addObject("message", "Login "+message );
+
+		model.addObject("message",this.userService.addUser(user));
+		System.out.println("Message is " +message);
 		return model;
 		
 	}

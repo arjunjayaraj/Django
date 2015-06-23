@@ -60,7 +60,9 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User findByUserName(String username) {
 		LOGGER.info("Finding a user entry by using information: {}", username);
-		return this.userDao.findOne(username);
+		User user= this.userDao.findOne(username);
+		System.out.println(user.toString());
+		return user;
 	}
 
 	@Override
