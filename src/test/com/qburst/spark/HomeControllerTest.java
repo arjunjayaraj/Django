@@ -10,9 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.MockitoAnnotations.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,7 +22,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.qburst.spark.controller.HomeController;
 import com.qburst.spark.model.User;
 import com.qburst.spark.service.UserService;
-import com.qburst.spark.service.UserServiceImpl;
 
 /**
  * @author Arjun k
@@ -35,20 +34,25 @@ public class HomeControllerTest {
 	private MockMvc mockMvc;
 	
 
-	@Autowired
-	UserService userService=new UserServiceImpl();
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
+	@Mock
+	private UserService userService;
+	
+	@InjectMocks
+	private HomeController homeController=new HomeController();
+	
+	private User user;
+	
 	@Before
 	public void setup() {
+	
 		MockitoAnnotations.initMocks(this);
+		
+		
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
 
-		mockMvc = MockMvcBuilders.standaloneSetup(new HomeController())
+		this.mockMvc = MockMvcBuilders.standaloneSetup(homeController)
 				.setViewResolvers(viewResolver).build();
 
 	}
@@ -56,7 +60,7 @@ public class HomeControllerTest {
 	@Test
 	public void testLogin() throws Exception {
 
-		mockMvc.perform(get("/login")).andExpect(status().isOk())
+		this.mockMvc.perform(get("/login")).andExpect(status().isOk())
 				.andExpect(view().name("login"))
 				.andExpect(model().attribute("message", "Welcome"))
 				.andExpect(forwardedUrl("/WEB-INF/views/login.jsp"));
@@ -64,13 +68,16 @@ public class HomeControllerTest {
 
 	@Test
 	public void testAddUser() throws Exception {
-		User user =new User();
+		user =new User();
 		user.setUsername("user");
 		user.setPassword("pass");
-		mockMvc.perform(get("/adduser").param("username", "user").param("password", "pass")).andExpect(status().isOk())
+		Mockito.when(userService.addUser(user)).thenReturn("SUCESSS");
+		this.mockMvc.perform(get("/adduser").param("username", "user").param("password", "pass")).andExpect(status().isOk())
 		.andExpect(view().name("login"));
+		//.andExpect(model().attribute("message","Login sucess"));
 		
 
 	}
+	
 
 }
