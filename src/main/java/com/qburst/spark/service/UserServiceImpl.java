@@ -25,14 +25,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public void addUser(User user) {
+	public String addUser(User user) {
 		LOGGER.info("Creating a new user entry by using information: {}", user.toString());
 		if (!this.userDao.exists(user.getUsername())) {
 			this.userDao.save(user);
 			LOGGER.info("Created a new user entry: {}", user.toString());
+			return "sucessfull";
 		}
 		else{
 			LOGGER.info("User is not created,{} already exists", user.toString());
+			return "Failure";
 		}
 
 	}

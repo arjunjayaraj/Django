@@ -41,35 +41,42 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		model.addAttribute("serverTime", formattedDate );
+		model.addAttribute("message", "welcome");
 		return "home";
 	}
 	
 	@RequestMapping(value="/login")
 	public ModelAndView login(){
+		logger.info("Redirecting to login page from Home controller");
 		ModelAndView model=new ModelAndView();
-		model.addObject("messsage", "Welcome");
+		model.addObject("message", "Welcome");
 		model.setViewName("login");
 		return model;
 	}
 	
 	@RequestMapping(value="/adduser")
-	public ModelAndView login(@ModelAttribute User user){
+	public ModelAndView addUser(@ModelAttribute User user){
 		ModelAndView model=new ModelAndView();
-		model.addObject("messsage", "Login succesful");
+		String message="";
+		System.out.println("user :" +user.toString());
 		model.setViewName("login");
+		logger.error("user in  Home controller" +user.toString());
+		
 		try{
-			this.userService.addUser(user);
+			message=this.userService.addUser(user);
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		model.addObject("message", "Login "+message );
 		return model;
 		
 	}
 	
 	@RequestMapping(value="/deleteuser")
-	public String login(@RequestParam("userName")String userName,Model model){
-		model.addAttribute("messsage", "delete succesful succesful");
+	public String deleteUser(@RequestParam("userName")String userName,Model model){
+		model.addAttribute("message", "delete succesful succesful");
 		//this.userService.removeUser(userName);
 		return "login";
 		
