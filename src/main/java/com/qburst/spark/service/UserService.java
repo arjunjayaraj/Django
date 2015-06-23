@@ -7,7 +7,7 @@ public interface UserService {
 
 	public abstract void setUserDao(UserDao userDao);
 
-	public abstract void addUser(User user);
+	public abstract String addUser(User user);
 
 	public abstract void updateUser(User user);
 
