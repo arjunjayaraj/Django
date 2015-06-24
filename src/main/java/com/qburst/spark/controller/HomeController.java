@@ -49,7 +49,7 @@ public class HomeController {
 	public ModelAndView login(){
 		logger.info("Redirecting to login page from Home controller");
 		ModelAndView model=new ModelAndView();
-		model.addObject("message", "Welcome");
+		model.addObject("message", "welcome");
 		model.setViewName("login");
 		return model;
 	}
@@ -70,8 +70,8 @@ public class HomeController {
 			e.printStackTrace();
 		}
 
-		model.addObject("message",this.userService.addUser(user));
-		System.out.println("Message is " +message);
+		model.addObject("message",message);
+
 		return model;
 		
 	}
