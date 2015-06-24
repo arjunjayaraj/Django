@@ -1,23 +1,11 @@
 package com.qburst.spark.dao;
 
-import java.util.List;
-
-import org.hibernate.SessionFactory;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.qburst.spark.model.User;
+@Repository
+public interface UserDao extends CrudRepository<User, String>,UserDaoCustom {
 
-public interface UserDao {
-
-	public abstract void setSessionFactory(SessionFactory sessionFactory);
-
-	public abstract User findByUserName(String userName);
-
-	public abstract void addUser(User user);
-
-	public abstract void updateUser(User user);
-
-	public abstract List<User> listUsers();
-
-	public abstract void removeUser(String userName);
 
 }

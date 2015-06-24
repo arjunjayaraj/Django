@@ -9,12 +9,14 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<log4j.version>2.3</log4j.version>
 		<org.slf4j-version>1.7.12</org.slf4j-version>
 		<jdk.version>1.8</jdk.version>
 		<jstl-api.version>1.2.1</jstl-api.version>
+		<taglibs-standard.version>1.1.2</taglibs-standard.version>
 		<jsp-api.version>2.2</jsp-api.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<mysql-connector.version>5.1.35</mysql-connector.version>
@@ -22,7 +24,9 @@
 		<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
 		<tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
-
+		<wtp.version>2.0</wtp.version>
+		<maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+		<mockito-all.version>1.10.19</mockito-all.version>
 	</properties>
 
 	<dependencies>
@@ -78,7 +82,17 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.8.0.RELEASE</version>
+		</dependency>
 		<!-- Spring and Transactions -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -101,15 +115,24 @@
 		</dependency>
 
 
-		<!-- Servlet, Jstl and Jsp API -->
+		<!-- Servlet, Jstl, Taglibs and Jsp API -->
 
 		<!-- Servlet and Jsp API -->
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>${servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
@@ -122,6 +145,14 @@
 			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
 			<version>${jstl-api.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>${taglibs-standard.version}</version>
+		</dependency>
+
+
 
 		<!-- MySql Driver -->
 		<dependency>
@@ -137,12 +168,27 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- Test -->
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito-all.version}</version>
+		</dependency>
+		<!-- Cache Filter -->
+		<dependency>
+			<groupId>com.samaxes.filter</groupId>
+			<artifactId>cachefilter</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>Spark</finalName>
@@ -158,7 +204,7 @@
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>false</downloadJavadocs>
 					<!-- Avoid type mvn eclipse:eclipse -Dwtpversion=2.0 -->
-					<wtpversion>2.0</wtpversion>
+					<wtpversion>${wtp.version}</wtpversion>
 				</configuration>
 			</plugin>
 
@@ -182,7 +228,11 @@
 					<path>/Spark</path>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+			</plugin>
 
 		</plugins>
 	</build>
