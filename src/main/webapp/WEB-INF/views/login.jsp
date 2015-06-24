@@ -2,6 +2,7 @@
 <%@ page session="false" %>
 <html>
 <head>
+<link type="text/css" rel="stylesheet" href="resources/css/spark.css"  media="screen,projection"/>
 </head>
 <body>
 <h3>${message}</h3>
