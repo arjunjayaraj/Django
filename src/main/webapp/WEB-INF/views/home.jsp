@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <html>
 	<link type="text/css" rel="stylesheet" href="resources/css/spark.css"  media="screen,projection"/> 
 <head>
@@ -11,5 +11,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<a href="login">SIGN IN</a>
 </body>
 </html>

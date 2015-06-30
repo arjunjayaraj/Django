@@ -32,7 +32,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -45,7 +45,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value="/login")
 	public ModelAndView login(){
 		logger.info("Redirecting to login page from Home controller");
 		ModelAndView model=new ModelAndView();
