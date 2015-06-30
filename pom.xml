@@ -14,10 +14,12 @@
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<log4j.version>2.3</log4j.version>
 		<org.slf4j-version>1.7.12</org.slf4j-version>
+		<spring-data-jpa.version>1.8.0.RELEASE</spring-data-jpa.version>
 		<jdk.version>1.8</jdk.version>
 		<jstl-api.version>1.2.1</jstl-api.version>
 		<taglibs-standard.version>1.1.2</taglibs-standard.version>
 		<jsp-api.version>2.2</jsp-api.version>
+		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<mysql-connector.version>5.1.35</mysql-connector.version>
 		<junit.version>4.12</junit.version>
@@ -27,6 +29,10 @@
 		<wtp.version>2.0</wtp.version>
 		<maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
 		<mockito-all.version>1.10.19</mockito-all.version>
+		<minify-maven-plugin.version>1.7.2</minify-maven-plugin.version>
+		<maven-war-plugin.version>2.6</maven-war-plugin.version>
+		<Gzip-filter.version>1.6.4</Gzip-filter.version>
+		<cachefilter.version>2.3.1</cachefilter.version>
 	</properties>
 
 	<dependencies>
@@ -91,7 +97,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>1.8.0.RELEASE</version>
+			<version>${spring-data-jpa.version}</version>
 		</dependency>
 		<!-- Spring and Transactions -->
 		<dependency>
@@ -123,7 +129,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
+			<version>${javax.servlet-api.version}</version>
 		</dependency>
 
 		<dependency>
@@ -186,14 +192,78 @@
 		<dependency>
 			<groupId>com.samaxes.filter</groupId>
 			<artifactId>cachefilter</artifactId>
-			<version>2.3.1</version>
+			<version>${cachefilter.version}</version>
 		</dependency>
+
+
+		<!--Gzip filters -->
+		<dependency>
+			<groupId>net.sourceforge.pjl-comp-filter</groupId>
+			<artifactId>pjl-comp-filter</artifactId>
+			<version>${Gzip-filter.version}</version>
+		</dependency>
+
 
 	</dependencies>
 	<build>
 		<finalName>Spark</finalName>
 
 		<plugins>
+
+			<!-- minify plugin -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven-war-plugin.version}</version>
+				<configuration>
+					<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
+					<warSourceExcludes>
+						resources/css/*.css,resources/js/*.js
+					</warSourceExcludes>
+					<warSourceIncludes>resources/css/minified/style.min.css,resources/js/minified/script.min.js</warSourceIncludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.samaxes.maven</groupId>
+
+				<artifactId>minify-maven-plugin</artifactId>
+				<version>${minify-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>minify</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>minify</goal>
+						</goals>
+						<configuration>
+							<charset>utf-8</charset>
+							<jsEngine>CLOSURE</jsEngine>
+							<skipMerge>false</skipMerge>
+							<nosuffix>false</nosuffix>
+							<webappSourceDir>${basedir}/src/main/webapp</webappSourceDir>
+							<webappTargetDir>${basedir}/src/main/webapp</webappTargetDir>
+							<cssSourceDir>resources/css</cssSourceDir>
+							<cssTargetDir>resources/css/minified</cssTargetDir>
+							<cssSourceIncludes>
+								<!-- Specify files/folders to be included for minify -->
+								        
+								<cssSourceInclude>*.css</cssSourceInclude>
+								       
+							</cssSourceIncludes>
+							<jsSourceDir>resources/js</jsSourceDir>
+							<jsTargetDir>resources/js/minified</jsTargetDir>
+							<jsSourceIncludes>
+								<!-- Specify files/folders to be included for minify -->
+								        
+								<jsSourceInclude>*.js</jsSourceInclude>
+								       
+							</jsSourceIncludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<!-- Eclipse project -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

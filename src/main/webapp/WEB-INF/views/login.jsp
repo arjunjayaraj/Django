@@ -1,10 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-<link type="text/css" rel="stylesheet" href="resources/css/spark.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="resources/css/minified/style.min.css"  media="screen,projection"/>
 </head>
 <body>
 <h3><spring:message code="${message}.label"  /> <spring:message code="login.label"  /></h3>
@@ -24,7 +24,10 @@
 <a href="?language=es">Spanish</a>
 <a href="?language=sv">Swedish</a>
 <a href="?language=zh_CN"></a>
+
 </div>
+<a href="home">Home</a>
+
 </body>
 
 </html>
