@@ -3,6 +3,12 @@ package com.qburst.spark.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * @author Arjun K, Ashwin Abraham Thomson, Sreekesh Dinesh
+ * @version 1.0
+ * @since 30-Jun-2015 2015 5:36:23 pm
+ * 
+ */
 @Entity
 public class User {
 
