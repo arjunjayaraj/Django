@@ -1,60 +1,24 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:tx="http://www.springframework.org/schema/tx" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util" 
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/tx 
-				      http://www.springframework.org/schema/tx/spring-tx.xsd 
-				      http://www.springframework.org/schema/mvc 
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
 				      http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 					  http://www.springframework.org/schema/beans 
 					  http://www.springframework.org/schema/beans/spring-beans.xsd
-					  http://www.springframework.org/schema/util 
-					  http://www.springframework.org/schema/util/spring-util-3.2.xsd
 					  http://www.springframework.org/schema/context 
-					  http://www.springframework.org/schema/context/spring-context-3.2.xsd
-					  http://www.springframework.org/schema/data/jpa
-    				  http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
-	<!-- DispatcherServlet Context: defines this servlet's request-processing 
-		infrastructure -->
-	<context:property-placeholder location="classpath:database.properties"/>
+					  http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
-	<jpa:repositories base-package="com.qburst.spark"/>
+	<context:component-scan base-package="com.qburst.spark" />
+
+
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-	
-	
-	
-	<bean id="localeResolver"
-		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-		<property name="defaultLocale" value="de" />
-	</bean>
- 
- 
- <mvc:interceptors>  
-	 <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
-        p:paramName="language" />
- 
- </mvc:interceptors>
+	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="31556926" />
 
- 
-
- 
-	<!-- Register the welcome.properties -->
-	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" >
-		    <value>locales/locale</value></property>
-	</bean>
-	
-	
-	
-	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -64,37 +28,12 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<context:component-scan base-package="com.qburst.spark" />
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${database.driver}" />
-		<property name="url" value="${database.url}" />
-		<property name="username" value="${database.user}" />
-		<property name="password" value="${database.password}" />
-	</bean>
-
 	
-   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-      <property name="dataSource" ref="dataSource" />
-      <property name="packagesToScan" value="com.qburst.spark.model" />
-      <property name="jpaVendorAdapter">
-         <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
-      </property>
-      <property name="persistenceUnitName" value="JpaPersistenceUnit"/>
-      <property name="jpaProperties">
-         <props>
-            <prop key="hibernate.hbm2ddl.auto">update</prop>
-            <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-            <prop key="hibernate.show_sql">true</prop>
-         </props>
-      </property>
-   </bean>
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
+	<mvc:interceptors>
+		<bean id="localeChangeInterceptor"
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+			p:paramName="language" />
 
-	<bean id="persistenceExceptionTranslationPostProcessor"
-		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	</mvc:interceptors>
+
 </beans>
