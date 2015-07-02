@@ -5,6 +5,15 @@
 	<display-name>Spark</display-name>
 	<!-- The definition of the Root Spring Container shared by all Servlets 
 		and Filters -->
+	<servlet>
+		<servlet-name>frontController</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>frontController</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/frontController-servlet.xml</param-value>
@@ -59,28 +68,20 @@
 		<url-pattern>*.jpg</url-pattern>
 	</filter-mapping>
 
-<filter>
-        <filter-name>CompressingFilter</filter-name>
-        <filter-class>com.planetj.servlet.filter.compression.CompressingFilter</filter-class>
-    </filter>
+	<filter>
+		<filter-name>CompressingFilter</filter-name>
+		<filter-class>com.planetj.servlet.filter.compression.CompressingFilter</filter-class>
+	</filter>
 
-<filter-mapping>
-    <filter-name>CompressingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-</filter-mapping>
-
-
+	<filter-mapping>
+		<filter-name>CompressingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 
-	<servlet>
-		<servlet-name>frontController</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>frontController</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+
+
+
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
