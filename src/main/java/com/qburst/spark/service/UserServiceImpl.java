@@ -9,6 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.qburst.spark.dao.UserDao;
 import com.qburst.spark.model.User;
 
+
+/**
+ * <h3>UserService Implementation</h3>
+ * @author Arjun K, Ashwin Abraham Thomson, Sreekesh Dinesh
+ * @version 1.0
+ * @since 30-Jun-2015 2015 5:36:23 pm
+ * 
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -27,14 +35,15 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public String addUser(User user) {
 		LOGGER.info("Creating a new user entry by using information: {}", user.toString());
-		if (!this.userDao.exists(user.getUsername())) {
+		String userName=user.getUsername();
+		if (userName!=null&&!this.userDao.exists(userName)) {
 			this.userDao.save(user);
 			LOGGER.info("Created a new user entry: {}", user.toString());
-			return "sucessfull";
+			return "sucess";
 		}
 		else{
 			LOGGER.info("User is not created,{} already exists", user.toString());
-			return "Failure";
+			return "failure";
 		}
 
 	}
@@ -65,18 +74,18 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-	@Override
-	@Transactional
-	public void removeUser(String username) {
-		LOGGER.info("Deleting a user entry by using information: {}", username);
-		User user = this.userDao.findOne(username);
-		if (user != null) {
-			this.userDao.delete(user);
-			LOGGER.info("Updated a user entry: {}", user.toString());
-		}
-		else{
-			LOGGER.info("Entity not found in Database while deleting user {}",username);
-		}
-	}
+//	@Override
+//	@Transactional
+//	public void removeUser(String username) {
+//		LOGGER.info("Deleting a user entry by using information: {}", username);
+//		User user = this.userDao.findOne(username);
+//		if (user != null) {
+//			this.userDao.delete(user);
+//			LOGGER.info("Updated a user entry: {}", user.toString());
+//		}
+//		else{
+//			LOGGER.info("Entity not found in Database while deleting user {}",username);
+//		}
+//	}
 
 }

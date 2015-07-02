@@ -12,14 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.qburst.spark.model.User;
 import com.qburst.spark.service.UserService;
 
 /**
- * Handles requests for the application home page.
+ * Handles requests for the application page.
+ * @author Arjun K, Ashwin Abraham Thomson, Sreekesh Dinesh
+ * @version 1.0
+ * @since 30-Jun-2015 2015 5:36:23 pm
  */
 @Controller
 public class HomeController {
@@ -32,7 +34,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -45,11 +47,11 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value="/login")
 	public ModelAndView login(){
 		logger.info("Redirecting to login page from Home controller");
 		ModelAndView model=new ModelAndView();
-		model.addObject("message", "Welcome");
+		model.addObject("message", "welcome");
 		model.setViewName("login");
 		return model;
 	}
@@ -70,18 +72,11 @@ public class HomeController {
 			e.printStackTrace();
 		}
 
-		model.addObject("message",this.userService.addUser(user));
-		System.out.println("Message is " +message);
+		model.addObject("message",message);
+
 		return model;
 		
 	}
-	
-	@RequestMapping(value="/deleteuser")
-	public String deleteUser(@RequestParam("userName")String userName,Model model){
-		model.addAttribute("message", "delete succesful succesful");
-		//this.userService.removeUser(userName);
-		return "login";
-		
-	}
+
 	
 }
