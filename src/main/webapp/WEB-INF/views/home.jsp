@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <html>
-	<link type="text/css" rel="stylesheet" href="resources/css/spark.css"  media="screen,projection"/> 
+	<link type="text/css" rel="stylesheet" href="resources/css/minified/style.min.css"  media="screen,projection"/> 
 <head>
 	<title>Home</title>
 </head>
