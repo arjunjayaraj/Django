@@ -33,6 +33,9 @@
 		<maven-war-plugin.version>2.6</maven-war-plugin.version>
 		<Gzip-filter.version>1.6.4</Gzip-filter.version>
 		<cachefilter.version>2.3.1</cachefilter.version>
+		<cors-filter.version>2.4</cors-filter.version>
+		<jackson.version>1.9.13</jackson.version>
+
 	</properties>
 
 	<dependencies>
@@ -191,8 +194,23 @@
 			<artifactId>pjl-comp-filter</artifactId>
 			<version>${Gzip-filter.version}</version>
 		</dependency>
-
-
+		<!-- Cors Filter -->
+		<dependency>
+			<groupId>com.thetransactioncompany</groupId>
+			<artifactId>cors-filter</artifactId>
+			<version>${cors-filter.version}</version>
+		</dependency>
+		<!-- jackson -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>Spark</finalName>
@@ -239,7 +257,7 @@
 								<cssSourceInclude>*.css</cssSourceInclude>
 								       
 							</cssSourceIncludes>
- 							<jsFinalFile>script.js</jsFinalFile>
+							<jsFinalFile>script.js</jsFinalFile>
 							<jsSourceDir>resources/js</jsSourceDir>
 							<jsTargetDir>resources/js/minified</jsTargetDir>
 							<jsSourceIncludes>

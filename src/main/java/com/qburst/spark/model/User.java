@@ -3,6 +3,8 @@ package com.qburst.spark.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * @author Arjun K, Ashwin Abraham Thomson, Sreekesh Dinesh
  * @version 1.0
@@ -10,6 +12,7 @@ import javax.persistence.Id;
  * 
  */
 @Entity
+
 public class User {
 
 	@Id
