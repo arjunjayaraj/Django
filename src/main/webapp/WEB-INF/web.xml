@@ -3,6 +3,7 @@
 	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 	<display-name>Spark</display-name>
+
 	<!-- The definition of the Root Spring Container shared by all Servlets 
 		and Filters -->
 	<servlet>
@@ -16,58 +17,26 @@
 	</servlet-mapping>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/frontController-servlet.xml</param-value>
+		<param-value>
+		    /WEB-INF/database.xml
+		    /WEB-INF/locale.xml
+		</param-value>
 	</context-param>
+	<!-- cors-Filter -->
+	<filter>
+		<filter-name>CORS</filter-name>
+		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CORS</filter-name>
+		<servlet-name>frontController</servlet-name>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CORS</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- Processes application requests -->
-	<filter>
-		<filter-name>imagesCache</filter-name>
-		<filter-class>com.samaxes.filter.CacheFilter</filter-class>
-		<init-param>
-			<param-name>static</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>expiration</param-name>
-			<param-value>300</param-value>
-		</init-param>
-	</filter>
-	<filter>
-		<filter-name>cssCache</filter-name>
-		<filter-class>com.samaxes.filter.CacheFilter</filter-class>
-		<init-param>
-			<param-name>expiration</param-name>
-			<param-value>400</param-value>
-		</init-param>
-	</filter>
-	<filter>
-		<filter-name>jsCache</filter-name>
-		<filter-class>com.samaxes.filter.CacheFilter</filter-class>
-		<init-param>
-			<param-name>private</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>expiration</param-name>
-			<param-value>200</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>cssCache</filter-name>
-		<url-pattern>*.css</url-pattern>
-	</filter-mapping>
-
-	<filter-mapping>
-		<filter-name>jsCache</filter-name>
-		<url-pattern>*.js</url-pattern>
-	</filter-mapping>
-
-	<filter-mapping>
-		<filter-name>imagesCache</filter-name>
-		<url-pattern>*.png</url-pattern>
-		<url-pattern>*.gif</url-pattern>
-		<url-pattern>*.jpg</url-pattern>
-	</filter-mapping>
-
 	<filter>
 		<filter-name>CompressingFilter</filter-name>
 		<filter-class>com.planetj.servlet.filter.compression.CompressingFilter</filter-class>
@@ -77,9 +46,6 @@
 		<filter-name>CompressingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-
-
 
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
