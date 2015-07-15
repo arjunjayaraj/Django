@@ -1,20 +1,24 @@
 package com.qburst.spark.controller;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import com.qburst.spark.model.User;
 import com.qburst.spark.service.UserService;
@@ -80,12 +84,20 @@ public class HomeController {
 		
 	}
 	@RequestMapping(value="/logintest")
-	public @ResponseBody String loginTest(@RequestParam("username") String username,@RequestParam("password") String password){
+	public String loginTest(@RequestBody User user){
+		System.out.println(user);
+		User userinfo=new User();
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			userinfo = mapper.readValue(user, User.class);
+//					} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		logger.info("Redirecting to login page from Home controller using angular");
-		User user = new User();
-		user.setUsername(username);
-		user.setPassword(password);
-		System.out.println(user.toString());
+//	User user;
+	System.out.println("The username in spark controller is "+user.getUsername());
+//	System.out.println("The password in spark controller is " +name);
+//		System.out.println(user.toString());
 		return "Sucesss";
 	}
 	
