@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.qburst.spark.model.User;
@@ -77,6 +79,16 @@ public class HomeController {
 		return model;
 		
 	}
+	@RequestMapping(value="/logintest")
+	public @ResponseBody String loginTest(@RequestParam("username") String username,@RequestParam("password") String password){
+		logger.info("Redirecting to login page from Home controller using angular");
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		System.out.println(user.toString());
+		return "Sucesss";
+	}
+	
 
 	
 }
