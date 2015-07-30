@@ -8,16 +8,17 @@
 
 	<!-- enable use-expressions -->
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="**/registernew" access="permitAll" />
-
+<!-- 		<intercept-url pattern="**/registernew" access="permitAll" /> -->
+<intercept-url pattern="/login" access="hasRole('ROLE_USER')" />
 		<!-- access denied page -->
 		<form-login 
 				
 				login-page="http://localhost:8080/angularLogin/"
-				default-target-url="http://localhost:8080/angularLogin/test.html" 
+				default-target-url="http://localhost:8089/spark/login" 
 				authentication-failure-url="http://localhost:8080/angularLogin/error.html"
 				username-parameter="username"
-				password-parameter="password" />
+				password-parameter="password" 
+				/>
 		<logout logout-success-url="/login?logout" />
 		<!-- enable csrf protection -->	
 <!-- 	 <csrf/> -->
