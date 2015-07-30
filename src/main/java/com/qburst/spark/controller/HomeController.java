@@ -1,5 +1,7 @@
 package com.qburst.spark.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -7,6 +9,7 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -88,6 +91,11 @@ public class HomeController {
 	public @ResponseBody void test() {
 				
 	}
-
+	@RequestMapping(value = "/j_spring_security_logout", method = {RequestMethod.POST,RequestMethod.GET,RequestMethod.HEAD})
+	public @ResponseBody void logout() throws URISyntaxException {
+		URI uri = new URI("j_spring_security_logout");
+	    HttpHeaders httpHeaders = new HttpHeaders();
+	    httpHeaders.setLocation(uri);
+	}
 	
 }

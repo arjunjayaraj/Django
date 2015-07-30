@@ -7,19 +7,19 @@
 
 
 	<!-- enable use-expressions -->
-	<http use-expressions="true"
+	<http  use-expressions="true"
 		entry-point-ref="authenticationEntryPoint">
 		<intercept-url pattern="**/registernew" access="permitAll" />
 
 		
 
-
+<!-- <logout logout-success-url="http://localhost:8080/Login/j_spring_security_logout"  logout-url="/j_spring_security_logout" /> -->
 
 		<!-- enable csrf protection -->
-		<!-- <csrf/> -->
+		<csrf/>
 
 		<custom-filter before="SECURITY_CONTEXT_FILTER" ref="myFilter" />
-		<custom-filter position="BASIC_AUTH_FILTER" ref="loginFilter" />
+		<custom-filter after="BASIC_AUTH_FILTER" ref="loginFilter" />
 	</http>
 
 	<beans:bean id="authenticationEntryPoint" class="com.qburst.spark.bean.MyAuthenticationEntryPoint">
@@ -37,6 +37,10 @@
 		</beans:property>
 	</beans:bean>
 
+	
+
+	
+	
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider user-service-ref="loginService" />
 	</authentication-manager>

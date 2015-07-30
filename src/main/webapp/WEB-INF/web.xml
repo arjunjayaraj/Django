@@ -34,7 +34,9 @@
 			<param-name>cors.exposedHeaders</param-name>
 			<param-value>X-CSRF-HEADER
       X-CSRF-PARAM 
-      X-CSRF-TOKEN</param-value>
+      X-CSRF-TOKEN
+      
+      </param-value>
 		</init-param>
 		<init-param>
 			<param-name>cors.supportedHeaders</param-name>
