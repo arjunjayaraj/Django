@@ -46,7 +46,10 @@ public class LoginService implements UserDetailsService {
 			throws UsernameNotFoundException {
 System.out.println("the useraname is" +username);
 		Users user = userDao.findOne(username);
-		List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
+		List<GrantedAuthority> authorities=null;
+		if(user!=null){
+		authorities = buildUserAuthority(user.getUserRole());
+		}
 		return buildUserForAuthentication(user, authorities);
 	}
 

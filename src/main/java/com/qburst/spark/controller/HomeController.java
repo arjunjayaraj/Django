@@ -88,7 +88,7 @@ public class HomeController {
 		logger.info("Redirecting to login page from Home controller using angular");
 
 	}
-	@RequestMapping(value = "/test", method = {RequestMethod.POST,RequestMethod.GET,RequestMethod.HEAD})
+	@RequestMapping(value = "/authenthicate", method = {RequestMethod.POST,RequestMethod.GET,RequestMethod.HEAD})
 	public @ResponseBody void test() {
 				
 	}
