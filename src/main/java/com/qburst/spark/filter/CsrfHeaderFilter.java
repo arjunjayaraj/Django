@@ -30,7 +30,7 @@ public class CsrfHeaderFilter extends OncePerRequestFilter {
 	       cookie = new Cookie("XSRF-TOKEN", token);
 	        cookie.setPath("/");
 	        response.addCookie(cookie);
-
+	        response.addHeader("X-CSRF-HEADER", token);
 	    
 	      }
 	    }
