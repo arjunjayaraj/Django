@@ -52,6 +52,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/login")
+
 	public ModelAndView login(){
 		logger.info("Redirecting to login page from Home controller");
 		ModelAndView model=new ModelAndView();
@@ -97,6 +98,16 @@ public class HomeController {
 		URI uri = new URI("j_spring_security_logout");
 	    HttpHeaders httpHeaders = new HttpHeaders();
 	    httpHeaders.setLocation(uri);
+	}
+
+	@RequestMapping(value="/test")
+
+	public ModelAndView test1(){
+		logger.info("Redirecting to test page from Home controller");
+		ModelAndView model=new ModelAndView();
+		
+		model.setViewName("test");
+		return model;
 	}
 	
 }
