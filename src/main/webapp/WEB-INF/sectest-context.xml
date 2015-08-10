@@ -10,7 +10,7 @@
 
 	<http  use-expressions="true"
 		entry-point-ref="authenticationEntryPoint">
-		<intercept-url pattern="**/registernew" access="permitAll" />
+		<intercept-url pattern="**/resources/home.html" access="hasRole('ROLE_ADMIN')" />
 
 		
 
