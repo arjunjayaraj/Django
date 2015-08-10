@@ -28,9 +28,12 @@ public class CsrfHeaderFilter extends OncePerRequestFilter {
 	      if (cookie==null || token!=null && !token.equals(cookie.getValue())) {
 	    	  		response.setHeader(RESPONSE_TOKEN_NAME , csrf.getToken());
 	       cookie = new Cookie("XSRF-TOKEN", token);
-	        cookie.setPath("/");
+	       System.out.println("The token in cookie" +token);
+	        cookie.setPath("/angularLogin/");
+	        
 	        response.addCookie(cookie);
 	        response.addHeader("X-CSRF-HEADER", token);
+	        System.out.println("The token in header" +token);
 	    
 	      }
 	    }
