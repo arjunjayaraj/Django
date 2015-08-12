@@ -44,11 +44,12 @@ public class LoginService implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-System.out.println("the useraname is" +username);
+
 		Users user = userDao.findOne(username);
 		List<GrantedAuthority> authorities=null;
 		if(user!=null){
 		authorities = buildUserAuthority(user.getUserRole());
+		System.out.println("the authorities are" +authorities);
 		}
 		return buildUserForAuthentication(user, authorities);
 	}
