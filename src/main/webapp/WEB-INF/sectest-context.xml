@@ -1,0 +1,52 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+
+	<!-- enable use-expressions -->
+
+	<http  use-expressions="true"
+		entry-point-ref="authenticationEntryPoint" >
+		<intercept-url pattern="**/registernew" access="permitAll" />
+
+		
+
+<!-- <logout logout-success-url="http://localhost:8080/Login/j_spring_security_logout"  logout-url="/j_spring_security_logout" /> -->
+
+
+		<!-- enable csrf protection -->
+		<csrf/>
+
+		<custom-filter before="SECURITY_CONTEXT_FILTER" ref="myFilter" />
+		<custom-filter after="BASIC_AUTH_FILTER" ref="loginFilter" />
+	</http>
+
+	<beans:bean id="authenticationEntryPoint" class="com.qburst.spark.bean.MyAuthenticationEntryPoint">
+	</beans:bean>
+
+	<beans:bean id="loginFilter"
+		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="filterProcessesUrl" value="/j_spring_security_check" />
+		<beans:property name="authenticationSuccessHandler">
+			<beans:bean class="com.qburst.spark.bean.MyAuthenticationSuccessHandler" />
+		</beans:property>
+		<beans:property name="authenticationFailureHandler">
+			<beans:bean class="com.qburst.spark.bean.MyAuthenticationFailureHandler" />
+		</beans:property>
+	</beans:bean>
+
+	
+
+	
+	
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="loginService" />
+	</authentication-manager>
+	<beans:bean id="myFilter" class="com.qburst.spark.filter.CsrfHeaderFilter" />
+
+
+</beans:beans>

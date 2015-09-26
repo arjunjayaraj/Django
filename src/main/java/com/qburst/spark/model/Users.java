@@ -1,9 +1,17 @@
 package com.qburst.spark.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+
 
 /**
  * @author Arjun K, Ashwin Abraham Thomson, Sreekesh Dinesh
@@ -12,13 +20,27 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  * 
  */
 @Entity
+@JsonAutoDetect
+@JsonIgnoreProperties
 
-public class User {
+public class Users {
 
 	@Id
 	String username;
 
 	String password;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	private Set<UserRole> userRole = new HashSet<UserRole>(0);
+
+
+	public Set<UserRole> getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(Set<UserRole> userRole) {
+		this.userRole = userRole;
+	}
 
 	public String getUsername() {
 		return username;
