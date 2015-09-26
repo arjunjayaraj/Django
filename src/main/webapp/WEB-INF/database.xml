@@ -36,7 +36,6 @@
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
-		 <property name="persistenceUnitName" value="JpaPersistenceUnit"/>
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>

@@ -1,7 +1,7 @@
 package com.qburst.spark.dao;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.qburst.spark.model.Users;
+import com.qburst.spark.model.User;
 
 /**
  * <h2>User DAO Interface</h2>
@@ -15,7 +15,7 @@ import com.qburst.spark.model.Users;
 
 
 @Repository
-public interface UserDao extends CrudRepository<Users, String>,UserDaoCustom {
+public interface UserDao extends CrudRepository<User, String>,UserDaoCustom {
 
 
 }

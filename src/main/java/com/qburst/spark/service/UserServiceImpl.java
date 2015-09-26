@@ -7,12 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.qburst.spark.dao.UserDao;
-import com.qburst.spark.dao.UserRoleDao;
-import com.qburst.spark.model.Roles;
-import com.qburst.spark.model.UserRole;
-import com.qburst.spark.model.Users;
-
-
+import com.qburst.spark.model.User;
 
 
 /**
@@ -27,13 +22,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private UserRoleDao userRoleDao;
-	
-
-	public void setUserRoleDao(UserRoleDao userRoleDao) {
-		this.userRoleDao = userRoleDao;
-	}
 
 	@Override
 	public void setUserDao(UserDao userDao) {
@@ -45,16 +33,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public String addUser(Users user) {
+	public String addUser(User user) {
 		LOGGER.info("Creating a new user entry by using information: {}", user.toString());
 		String userName=user.getUsername();
 		if (userName!=null&&!this.userDao.exists(userName)) {
 			this.userDao.save(user);
 			LOGGER.info("Created a new user entry: {}", user.toString());
-			 UserRole userrole = new UserRole();
-		        userrole.setRole(Roles.ROLE_ADMIN);
-		        userrole.setUser(user);
-		        this.userRoleDao.save(userrole);
 			return "sucess";
 		}
 		else{
@@ -66,9 +50,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public void updateUser(Users user) {
+	public void updateUser(User user) {
 		LOGGER.info("Updating a user entry by using information: {}", user.toString());
-		Users oldInfo = this.userDao.findOne(user.getUsername());
+		User oldInfo = this.userDao.findOne(user.getUsername());
 		if (oldInfo != null) {
 			oldInfo.setPassword(user.getPassword());
 			this.userDao.save(oldInfo);
@@ -83,9 +67,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public Users findByUserName(String username) {
+	public User findByUserName(String username) {
 		LOGGER.info("Finding a user entry by using information: {}", username);
-		Users user= this.userDao.findOne(username);
+		User user= this.userDao.findOne(username);
 		System.out.println(user.toString());
 		return user;
 	}
