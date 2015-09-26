@@ -32,7 +32,6 @@ public class LoginService implements UserDetailsService {
 	@Autowired
 	UserDao userDao;
 
-
 	public UserDao getUserDao() {
 		return userDao;
 	}
@@ -42,22 +41,18 @@ public class LoginService implements UserDetailsService {
 	}
 
 	@Transactional
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		Users user = userDao.findOne(username);
-		List<GrantedAuthority> authorities=null;
-		if(user!=null){
-		authorities = buildUserAuthority(user.getUserRole());
-		System.out.println("the authorities are" +authorities);
+		List<GrantedAuthority> authorities = null;
+		if (user != null) {
+			authorities = buildUserAuthority(user.getUserRole());
 		}
 		return buildUserForAuthentication(user, authorities);
 	}
 
-	private User buildUserForAuthentication(Users user,
-			List<GrantedAuthority> authorities) {
-		return new User(user.getUsername(), user.getPassword(),
-				true, true, true, true, authorities);
+	private User buildUserForAuthentication(Users user, List<GrantedAuthority> authorities) {
+		return new User(user.getUsername(), user.getPassword(), true, true, true, true, authorities);
 	}
 
 	private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {
@@ -69,8 +64,7 @@ public class LoginService implements UserDetailsService {
 			setAuths.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
 		}
 
-		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(
-				setAuths);
+		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
 		return Result;
 	}
 

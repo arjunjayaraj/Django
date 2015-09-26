@@ -11,8 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
-
 @Entity
 @Table(name = "USER_ROLES", uniqueConstraints = { @UniqueConstraint(columnNames = { "username", "ROLE" }) })
 public class UserRole {
@@ -52,7 +50,5 @@ public class UserRole {
 	public final void setRole(Roles role) {
 		this.role = role;
 	}
-
-
 
 }

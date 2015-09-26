@@ -3,8 +3,13 @@ package com.qburst.spark.dao;
 /**
  * 
  * <h2>User Custom DAO Implementation</h2>
- * <p>UserDaoCustomImpl implements UserDaoCustom Interface.</p>
- * <p>All the functions in UserDaoCustom should be implemented here</p>
+ * <p>
+ * UserDaoCustomImpl implements UserDaoCustom Interface.
+ * </p>
+ * <p>
+ * All the functions in UserDaoCustom should be implemented here
+ * </p>
+ * 
  * @see UserDaoCustom
  * @author Arjun K, Ashwin Abraham Thomson, Sreekesh Dinesh
  * @version 1.0

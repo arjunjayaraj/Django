@@ -6,11 +6,12 @@
 	<title>Home</title>
 </head>
 <body>
-<h1 class="babundi">
+<div><h1>
 	Hello world! ${message}  
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<a href="login" class="django">SIGN IN</a>
+</div>
+<div><a href="login" class="link">SIGN IN</a></div>
 </body>
 </html>

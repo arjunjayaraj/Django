@@ -9,19 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-
-
 /**
  * @author Arjun k
  * @since 29-Jul-2015 2015 3:01:00 pm
- * @version 
- * MyAuthenticationEntryPoint.java
+ * @version MyAuthenticationEntryPoint.java
  */
 
 public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
-	@Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_FORBIDDEN);
-    }
-	
+	public void commence(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException authException) throws IOException, ServletException {
+		response.sendError(HttpServletResponse.SC_FORBIDDEN);
+	}
+
 }

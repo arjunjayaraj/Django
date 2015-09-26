@@ -7,29 +7,50 @@
 
 
 	<!-- enable use-expressions -->
-	<http auto-config="true" use-expressions="true" create-session="stateless">
-<!-- 		<intercept-url pattern="**/registernew" access="permitAll" /> -->
-<intercept-url pattern="/login" access="hasRole('ROLE_USER')" />
-		<!-- access denied page -->
-		<form-login 
+
+
+	<http entry-point-ref="authenticationEntryPoint"  use-expressions="true" 
+		 >
+				<intercept-url pattern="**/resources/home.html"  access="ROLE_USER" />
+
+				<intercept-url pattern="/home.html"  access="hasRole('ROLE_ADMIN')"/>
+
+
+<!-- <logout logout-success-url="http://localhost:8080/Login/j_spring_security_logout"  logout-url="/j_spring_security_logout" /> -->
+
+
+		<!-- enable csrf protection -->
+		<csrf/>
+
+		<custom-filter after="SECURITY_CONTEXT_FILTER" ref="myFilter" />
+		<custom-filter position="BASIC_AUTH_FILTER" ref="loginFilter" />
 				
-				login-page="http://localhost:8080/angularLogin/"
-				default-target-url="http://localhost:8089/spark/login" 
-				authentication-failure-url="http://localhost:8080/angularLogin/error.html"
-				username-parameter="username"
-				password-parameter="password" 
-				/>
-		<logout logout-success-url="/login?logout" />
-		<!-- enable csrf protection -->	
-<!-- 	 <csrf/> -->
+	</http>
 
-<custom-filter before="SECURITY_CONTEXT_FILTER" ref="myFilter"/>
-</http>
+	<beans:bean id="authenticationEntryPoint" class="com.qburst.spark.bean.MyAuthenticationEntryPoint">
+	</beans:bean>
 
-<authentication-manager>
+	<beans:bean id="loginFilter"
+		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="filterProcessesUrl" value="/j_spring_security_check" />
+		<beans:property name="authenticationSuccessHandler">
+			<beans:bean class="com.qburst.spark.bean.MyAuthenticationSuccessHandler" />
+		</beans:property>
+		<beans:property name="authenticationFailureHandler">
+			<beans:bean class="com.qburst.spark.bean.MyAuthenticationFailureHandler" />
+		</beans:property>
+	</beans:bean>
+	
+
+	
+
+	
+	
+	<authentication-manager alias="authenticationManager">
 		<authentication-provider user-service-ref="loginService" />
 	</authentication-manager>
-<beans:bean id="myFilter" class="com.qburst.spark.filter.CsrfHeaderFilter"/>
+	<beans:bean id="myFilter" class="com.qburst.spark.filter.CsrfHeaderFilter" />
 
-  
+
 </beans:beans>

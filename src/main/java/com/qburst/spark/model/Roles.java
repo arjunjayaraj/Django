@@ -1,7 +1,5 @@
 package com.qburst.spark.model;
 
 public enum Roles {
-ROLE_ADMIN,
-ROLE_USER,
-ADMIN
+	ROLE_ADMIN, ROLE_USER, ADMIN
 }

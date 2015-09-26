@@ -12,8 +12,9 @@
 <h3><spring:message code="${message}.label"  /> <spring:message code="login.label"  /></h3>
 <div>
 <form action='j_spring_security_check' method='POST'>
-<input type="text" name="username"  placeholder="<spring:message code="userName.label"  />">
-<input type="password" name="password" placeholder="<spring:message code="password.label"  />">
+<input type="text" name="j_username"  placeholder="<spring:message code="userName.label"  />">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+<input type="password" name="j_password" placeholder="<spring:message code="password.label"  />">
 <input type="submit" value="<spring:message code="submit.label"  />">
 </form>
 <a href="?language=ar">Arabic</a>

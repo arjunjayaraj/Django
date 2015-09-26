@@ -12,14 +12,13 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 /**
  * @author Arjun k
  * @since 29-Jul-2015 2015 3:06:21 pm
- * @version 
- * MyAuthenticationFailureHandler.java
+ * @version MyAuthenticationFailureHandler.java
  */
 public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication Failed: " + exception.getMessage());
-    }
+	@Override
+	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException exception) throws IOException, ServletException {
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication Failed: " + exception.getMessage());
+	}
 }

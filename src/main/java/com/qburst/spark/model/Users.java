@@ -11,8 +11,6 @@ import javax.persistence.OneToMany;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-
-
 /**
  * @author Arjun K, Ashwin Abraham Thomson, Sreekesh Dinesh
  * @version 1.0
@@ -29,10 +27,9 @@ public class Users {
 	String username;
 
 	String password;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private Set<UserRole> userRole = new HashSet<UserRole>(0);
-
 
 	public Set<UserRole> getUserRole() {
 		return userRole;
@@ -62,6 +59,5 @@ public class Users {
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + "]";
 	}
-
 
 }
