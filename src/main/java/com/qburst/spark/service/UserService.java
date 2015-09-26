@@ -1,7 +1,7 @@
 package com.qburst.spark.service;
 
 import com.qburst.spark.dao.UserDao;
-import com.qburst.spark.model.Users;
+import com.qburst.spark.model.User;
 
 /**
  * <h3>UserService Interface</h3>
@@ -15,11 +15,11 @@ public interface UserService {
 
 	public abstract void setUserDao(UserDao userDao);
 
-	public abstract String addUser(Users user);
+	public abstract String addUser(User user);
 
-	public abstract void updateUser(Users user);
+	public abstract void updateUser(User user);
 
-	public abstract Users findByUserName(String username);
+	public abstract User findByUserName(String username);
 
 //	public abstract void removeUser(String username);
 

@@ -1,24 +1,26 @@
 package com.qburst.spark.controller;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.qburst.spark.model.Users;
+
+import com.qburst.spark.model.User;
 import com.qburst.spark.service.UserService;
 
 /**
@@ -52,7 +54,6 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/login")
-
 	public ModelAndView login(){
 		logger.info("Redirecting to login page from Home controller");
 		ModelAndView model=new ModelAndView();
@@ -60,10 +61,9 @@ public class HomeController {
 		model.setViewName("login");
 		return model;
 	}
-
-	@RequestMapping(value="/adduser")
 	
-	public @ResponseBody ModelAndView addUser(@ModelAttribute Users user){
+	@RequestMapping(value="/adduser")
+	public ModelAndView addUser(@ModelAttribute User user){
 		ModelAndView model=new ModelAndView();
 		String message="";
 		model.setViewName("login");
@@ -83,31 +83,24 @@ public class HomeController {
 		return model;
 		
 	}
-	@RequestMapping(value="/logintest",method = {RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody void loginTest(@ModelAttribute Users user){
-			System.out.println("in controller now" +user.toString());
+	@RequestMapping(value="/logintest")
+	public String loginTest(@RequestBody User user){
+		System.out.println(user);
+		User userinfo=new User();
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			userinfo = mapper.readValue(user, User.class);
+//					} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		logger.info("Redirecting to login page from Home controller using angular");
+//	User user;
+	System.out.println("The username in spark controller is "+user.getUsername());
+//	System.out.println("The password in spark controller is " +name);
+//		System.out.println(user.toString());
+		return "Sucesss";
+	}
+	
 
-	}
-	@RequestMapping(value = "/authenthicate", method = {RequestMethod.POST,RequestMethod.GET,RequestMethod.HEAD})
-	public @ResponseBody void test() {
-				
-	}
-	@RequestMapping(value = "/j_spring_security_logout", method = {RequestMethod.POST,RequestMethod.GET,RequestMethod.HEAD})
-	public @ResponseBody void logout() throws URISyntaxException {
-		URI uri = new URI("j_spring_security_logout");
-	    HttpHeaders httpHeaders = new HttpHeaders();
-	    httpHeaders.setLocation(uri);
-	}
-
-	@RequestMapping(value="/test")
-
-	public ModelAndView test1(){
-		logger.info("Redirecting to test page from Home controller");
-		ModelAndView model=new ModelAndView();
-		
-		model.setViewName("test");
-		return model;
-	}
 	
 }
