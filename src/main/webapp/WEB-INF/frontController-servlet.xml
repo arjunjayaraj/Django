@@ -57,18 +57,18 @@
 			</props>
 		</property>
 	</bean>
-<!-- 	<bean id="entityManagerFactory" -->
-<!-- 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" -->
-<!-- 		autowire="byName"> -->
-<!-- 		<property name="persistenceUnitName" value="JpaPersistenceUnit" /> -->
-<!-- 		<property name="packagesToScan" value="com.qburst.spark.model" /> -->
-<!-- 	</bean> -->
-<!-- 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> -->
-<!-- 		<property name="entityManagerFactory" ref="entityManagerFactory" /> -->
-<!-- 	</bean> -->
-<!-- 	<tx:annotation-driven transaction-manager="transactionManager" /> -->
-<!-- 	<bean id="persistenceExceptionTranslationPostProcessor" -->
-<!-- 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		autowire="byName">
+		<property name="persistenceUnitName" value="JpaPersistenceUnit" />
+		<property name="packagesToScan" value="com.qburst.spark.model" />
+	</bean>
+<!-- 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean> -->
+<!-- 	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> -->
 
 
 	<bean id="txManager"
